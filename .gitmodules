@@ -1,7 +1,3 @@
-[submodule "third/nemo"]
-	path = third/nemo
-	url = https://github.com/left2right/nemo.git
-	branch = zset-score-uint64
 [submodule "third/glog"]
 	path = third/glog
 	url = https://github.com/Qihoo360/glog.git
