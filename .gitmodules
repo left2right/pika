@@ -7,3 +7,7 @@
 [submodule "third/slash"]
 	path = third/slash
 	url = https://github.com/baotiao/slash.git
+[submodule "third/nemo"]
+	path = third/nemo
+	url = https://github.com/left2right/nemo.git
+	branch = zset-score-long 
