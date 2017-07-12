@@ -1,6 +1,7 @@
 [submodule "third/nemo"]
 	path = third/nemo
-	url = https://github.com/Qihoo360/nemo.git
+	url = https://github.com/left2right/nemo.git
+	branch = easemob
 [submodule "third/glog"]
 	path = third/glog
 	url = https://github.com/Qihoo360/glog.git
