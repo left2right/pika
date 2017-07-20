@@ -1342,10 +1342,12 @@ void* SlotsMgrtSenderThread::ThreadMain() {
                 {
                     slash::RWLock lb(&rwlock_batch_, true);
                     slash::RWLock lo(&rwlock_ones_, true);
-                    moved_keys_num_ = 0;
                     remained_keys_num_ = g_pika_server->db()->SCard(slotKey) + migrating_batch_.size() + migrating_ones_.size();
                     // add ones to batch end; empty ones
                     std::copy (migrating_ones_.begin(), migrating_ones_.end(), std::back_inserter(migrating_batch_));
+                    if (migrating_batch_.size() != 0) {
+                        moved_keys_num_ = 0;
+                    }
                     std::vector<std::pair<const char, std::string>>().swap(migrating_ones_);
                 }
 
@@ -1382,6 +1384,7 @@ void* SlotsMgrtSenderThread::ThreadMain() {
                 if (remained_keys_num_ == 0) {
                     LOG(INFO) << "Migrate slot: " << slot_num_ <<" finished";
                     slotsmgrt_cond_.Signal();
+                    moved_keys_num_ = 0;
                     is_migrating_ = false;
                     should_exit_ = true;
                     goto migrate_end;
