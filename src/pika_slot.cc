@@ -544,6 +544,7 @@ int SlotsMgrtTagSlotCmd::SlotKeyPop(){
     if (!s.ok()) {
         LOG(WARNING) << "Zrem key: " << key_ <<" from slotKey, error: " <<strerror(errno);
     }
+    delete iter;
     return 0;
 }
 
@@ -1317,10 +1318,12 @@ bool SlotsMgrtSenderThread::ElectMigrateKeys(){
             } else {
                 LOG(WARNING) << "Zrem key: " << key <<" from slotKey, error: " <<strerror(errno);
                 std::vector<std::pair<const char, std::string>>().swap(migrating_batch_);
+                delete iter;
                 return false;
             }
         }
     }
+    delete iter;
     return true;
 }
 
