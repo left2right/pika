@@ -549,11 +549,11 @@ int SlotsMgrtTagSlotCmd::SlotKeyPop(){
 }
 
 void SlotsMgrtTagSlotCmd::Do() {
-    if (g_pika_conf->slotmigrate() != true){
+    /*if (g_pika_conf->slotmigrate() != true){
         LOG(WARNING) << "Not in slotmigrate mode";
         res_.SetRes(CmdRes::kErrOther, "not set slotmigrate");
         return;
-    }
+    }*/
     if (SlotKeyPop() < 0){
       return;
     }
@@ -686,11 +686,11 @@ int SlotsMgrtTagOneCmd::SlotKeyRemCheck(){
 }
 
 void SlotsMgrtTagOneCmd::Do() {
-    if (g_pika_conf->slotmigrate() != true){
+    /*if (g_pika_conf->slotmigrate() != true){
         LOG(WARNING) << "Not in slotmigrate mode";
         res_.SetRes(CmdRes::kErrOther, "not set slotmigrate");
         return;
-    }
+    }*/
     if (KeyTypeCheck() < 0){
         return;
     }
@@ -800,11 +800,11 @@ void SlotsReloadCmd::DoInitial(PikaCmdArgsType &argv, const CmdInfo* const ptr_i
 }
 
 void SlotsReloadCmd::Do() {
-    if (g_pika_conf->slotmigrate() != true){
+    /*if (g_pika_conf->slotmigrate() != true){
         LOG(WARNING) << "Not in slotmigrate mode";
         res_.SetRes(CmdRes::kErrOther, "not set slotmigrate");
         return;
-    }
+    }*/
     g_pika_server->Bgslotsreload();
     const PikaServer::BGSlotsReload& info = g_pika_server->bgslots_reload();
     char buf[256];
@@ -822,11 +822,11 @@ void SlotsReloadOffCmd::DoInitial(PikaCmdArgsType &argv, const CmdInfo* const pt
 }
 
 void SlotsReloadOffCmd::Do() {
-    if (g_pika_conf->slotmigrate() != true){
+    /*if (g_pika_conf->slotmigrate() != true){
         LOG(WARNING) << "Not in slotmigrate mode";
         res_.SetRes(CmdRes::kErrOther, "not set slotmigrate");
         return;
-    }
+    }*/
     g_pika_server->StopBgslotsreload();
     res_.SetRes(CmdRes::kOk);
     return;
@@ -842,11 +842,11 @@ void SlotsDelCmd::DoInitial(PikaCmdArgsType &argv, const CmdInfo* const ptr_info
 }
 
 void SlotsDelCmd::Do() {
-    if (g_pika_conf->slotmigrate() != true){
+    /*if (g_pika_conf->slotmigrate() != true){
         LOG(WARNING) << "Not in slotmigrate mode";
         res_.SetRes(CmdRes::kErrOther, "not set slotmigrate");
         return;
-    }
+    }*/
     std::vector<std::string> keys;
     std::vector<std::string>::const_iterator iter;
     for (iter = slots_.begin(); iter != slots_.end(); iter++){
@@ -901,11 +901,11 @@ void SlotsScanCmd::DoInitial(PikaCmdArgsType &argv, const CmdInfo* const ptr_inf
 }
 
 void SlotsScanCmd::Do() {
-    if (g_pika_conf->slotmigrate() != true){
+    /*if (g_pika_conf->slotmigrate() != true){
         LOG(WARNING) << "Not in slotmigrate mode";
         res_.SetRes(CmdRes::kErrOther, "not set slotmigrate");
         return;
-    }
+    }*/
     int64_t card = g_pika_server->db()->SCard(key_);
     if (card >= 0 && cursor_ >= card) {
         cursor_ = 0;
@@ -997,11 +997,11 @@ void SlotsMgrtTagSlotAsyncCmd::DoInitial(PikaCmdArgsType &argv, const CmdInfo* c
 }
 
 void SlotsMgrtTagSlotAsyncCmd::Do() {
-    if (g_pika_conf->slotmigrate() != true){
+    /*if (g_pika_conf->slotmigrate() != true){
         LOG(WARNING) << "Not in slotmigrate mode";
         res_.SetRes(CmdRes::kErrOther, "not set slotmigrate");
         return;
-    }
+    }*/
 
     bool ret = g_pika_server->SlotsMigrateBatch(dest_ip_, dest_port_, timeout_ms_, slot_num_, keys_num_);
     if (!ret) {
@@ -1034,11 +1034,11 @@ void SlotsMgrtExecWrapperCmd::DoInitial(PikaCmdArgsType &argv, const CmdInfo* co
 }
 
 void SlotsMgrtExecWrapperCmd::Do() {
-    if (g_pika_conf->slotmigrate() != true){
+    /*if (g_pika_conf->slotmigrate() != true){
         LOG(WARNING) << "Not in slotmigrate mode";
         res_.SetRes(CmdRes::kErrOther, "config not set slotmigrate");
         return;
-    }
+    }*/
     res_.AppendArrayLen(2);
     int ret = g_pika_server->SlotsMigrateOne(key_);
     switch (ret) {
@@ -1066,11 +1066,11 @@ void SlotsMgrtAsyncStatusCmd::DoInitial(PikaCmdArgsType &argv, const CmdInfo* co
 }
 
 void SlotsMgrtAsyncStatusCmd::Do() {
-    if (g_pika_conf->slotmigrate() != true){
+    /*if (g_pika_conf->slotmigrate() != true){
         LOG(WARNING) << "Not in slotmigrate mode";
         res_.SetRes(CmdRes::kErrOther, "config not set slotmigrate");
         return;
-    }
+    }*/
     std::string status;
     std::string ip;
     int64_t port, slot, moved, remained;
@@ -1097,11 +1097,11 @@ void SlotsMgrtAsyncCancelCmd::DoInitial(PikaCmdArgsType &argv, const CmdInfo* co
 }
 
 void SlotsMgrtAsyncCancelCmd::Do() {
-    if (g_pika_conf->slotmigrate() != true){
+    /*if (g_pika_conf->slotmigrate() != true){
         LOG(WARNING) << "Not in slotmigrate mode";
         res_.SetRes(CmdRes::kErrOther, "config not set slotmigrate");
         return;
-    }
+    }*/
     bool ret = g_pika_server->SlotsMigrateAsyncCancel();
     if(!ret) {
         res_.SetRes(CmdRes::kErrOther, "slotsmgrt-async-cancel error");
